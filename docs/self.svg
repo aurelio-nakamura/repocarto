@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="946" viewBox="0 0 900 946" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" role="img" aria-label="Codebase map of repocarto">
+<style>
+    .bg{fill:#ffffff}
+    .frame{stroke:#d0d7de}
+    .dir{fill:none;stroke:#d0d7de;stroke-width:1}
+    .fileln{stroke:#ffffff;stroke-opacity:.55}
+    .txt{fill:#57606a}
+    .title{fill:#1f2328}
+    .mark{fill:#57606a}
+    @media (prefers-color-scheme: dark){
+      .bg{fill:#0d1117}
+      .frame{stroke:#30363d}
+      .dir{stroke:#30363d}
+      .fileln{stroke:#0d1117;stroke-opacity:.5}
+      .txt{fill:#8b949e}
+      .title{fill:#e6edf3}
+      .mark{fill:#8b949e}
+    }
+  </style>
+<title>repocarto — codebase map by repocarto</title>
+<rect class="bg frame" x="0.5" y="0.5" width="899" height="945" rx="8"/>
+<circle class="dir" cx="577.3" cy="614.2" r="67.6"/>
+<circle class="dir" cx="477.1" cy="775.0" r="106.3"/>
+<circle class="dir" cx="436.6" cy="289.1" r="257.4"/>
+<circle class="dir" cx="375.7" cy="627.4" r="58.0"/>
+<circle class="dir" cx="577.3" cy="614.2" r="62.1"/>
+<circle class="fileln" cx="544.0" cy="614.2" r="26.3" fill="#cb171e" stroke-width="1"><title>.github/workflows/ci.yml</title></circle>
+<circle class="fileln" cx="606.0" cy="614.2" r="30.6" fill="#cb171e" stroke-width="1"><title>.github/workflows/selfmap.yml</title></circle>
+<circle class="fileln" cx="668.0" cy="614.2" r="15.5" fill="#f14e32" stroke-width="1"><title>.gitignore</title></circle>
+<circle class="fileln" cx="668.6" cy="659.2" r="25.8" fill="#cccccc" stroke-width="1"><title>LICENSE</title></circle>
+<circle class="fileln" cx="697.0" cy="528.7" r="67.3" fill="#6a9fb5" stroke-width="1"><title>README.md</title></circle>
+<circle class="fileln" cx="629.4" cy="721.5" r="41.8" fill="#cb171e" stroke-width="1"><title>action.yml</title></circle>
+<circle class="fileln" cx="477.1" cy="775.0" r="97.5" fill="#ff9900" stroke-width="1"><title>docs/demo.svg</title></circle>
+<circle class="fileln" cx="735.2" cy="637.4" r="38.5" fill="#cbcb41" stroke-width="1"><title>package.json</title></circle>
+<circle class="fileln" cx="367.4" cy="297.1" r="69.7" fill="#3178c6" stroke-width="1"><title>src/cli.ts</title></circle>
+<circle class="fileln" cx="470.8" cy="297.1" r="25.2" fill="#3178c6" stroke-width="1"><title>src/index.ts</title></circle>
+<circle class="fileln" cx="475.7" cy="393.5" r="63.3" fill="#3178c6" stroke-width="1"><title>src/lang.ts</title></circle>
+<circle class="fileln" cx="496.6" cy="158.5" r="104.2" fill="#3178c6" stroke-width="1"><title>src/pack.ts</title></circle>
+<circle class="fileln" cx="341.9" cy="445.4" r="68.4" fill="#3178c6" stroke-width="1"><title>src/render.ts</title></circle>
+<circle class="fileln" cx="608.5" cy="319.8" r="75.9" fill="#3178c6" stroke-width="1"><title>src/scan.ts</title></circle>
+<circle class="fileln" cx="375.7" cy="627.4" r="53.3" fill="#f1e05a" stroke-width="1"><title>test/repocarto.test.js</title></circle>
+<circle class="fileln" cx="696.4" cy="703.2" r="22.0" fill="#cbcb41" stroke-width="1"><title>tsconfig.json</title></circle>
+<text class="txt" x="577.3" y="543.5" text-anchor="middle" font-size="15.0" font-weight="600">.github</text>
+<text class="txt" x="477.1" y="665.8" text-anchor="middle" font-size="15.0" font-weight="600">docs</text>
+<text class="txt" x="436.6" y="28.7" text-anchor="middle" font-size="15.0" font-weight="600">src</text>
+<text class="txt" x="375.7" y="566.4" text-anchor="middle" font-size="15.0" font-weight="600">test</text>
+<text class="title" x="14" y="26" font-size="16" font-weight="700">repocarto</text>
+<text class="mark" x="888" y="22" text-anchor="end" font-size="12" opacity="0.85">🗺 repocarto</text>
+<circle cx="19" cy="923" r="5" fill="#3178c6"/>
+<text class="txt" x="29" y="927" font-size="12">TypeScript</text>
+<circle cx="117" cy="923" r="5" fill="#ff9900"/>
+<text class="txt" x="127" y="927" font-size="12">SVG</text>
+<circle cx="164.6" cy="923" r="5" fill="#6a9fb5"/>
+<text class="txt" x="174.6" y="927" font-size="12">Markdown</text>
+<circle cx="248.2" cy="923" r="5" fill="#cb171e"/>
+<text class="txt" x="258.2" y="927" font-size="12">YAML</text>
+<circle cx="303" cy="923" r="5" fill="#f1e05a"/>
+<text class="txt" x="313" y="927" font-size="12">JavaScript</text>
+<circle cx="401" cy="923" r="5" fill="#cbcb41"/>
+<text class="txt" x="411" y="927" font-size="12">JSON</text>
+<text class="mark" x="888" y="927" text-anchor="end" font-size="11" opacity="0.8">github.com/aurelio-nakamura/repocarto</text>
+</svg>
