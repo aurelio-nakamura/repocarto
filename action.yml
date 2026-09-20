@@ -1,0 +1,56 @@
+name: "repocarto — codebase map"
+description: "Render a living SVG map of your repository's codebase and (optionally) commit it to your README."
+branding:
+  icon: "map"
+  color: "purple"
+inputs:
+  path:
+    description: "Directory to map (relative to the repo root)."
+    default: "."
+  output:
+    description: "Output SVG path."
+    default: "repocarto.svg"
+  metric:
+    description: "Sizing metric: loc or bytes."
+    default: "loc"
+  size:
+    description: "Square map size in pixels."
+    default: "900"
+  title:
+    description: "Title shown top-left (defaults to the folder name)."
+    default: ""
+  version:
+    description: "repocarto npm version to run (e.g. latest or 0.1.0)."
+    default: "latest"
+  commit:
+    description: "If true, commit the generated SVG back to the repository."
+    default: "false"
+  commit_message:
+    description: "Commit message used when commit is true."
+    default: "chore: update codebase map (repocarto)"
+runs:
+  using: "composite"
+  steps:
+    - name: Generate codebase map
+      shell: bash
+      run: |
+        set -euo pipefail
+        args=("${{ inputs.path }}" -o "${{ inputs.output }}" -m "${{ inputs.metric }}" -s "${{ inputs.size }}")
+        if [ -n "${{ inputs.title }}" ]; then
+          args+=(-t "${{ inputs.title }}")
+        fi
+        npx -y "repocarto@${{ inputs.version }}" "${args[@]}"
+    - name: Commit map
+      if: ${{ inputs.commit == 'true' }}
+      shell: bash
+      run: |
+        set -euo pipefail
+        if [ -n "$(git status --porcelain -- "${{ inputs.output }}")" ]; then
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "${{ inputs.output }}"
+          git commit -m "${{ inputs.commit_message }}"
+          git push
+        else
+          echo "repocarto: map unchanged, nothing to commit."
+        fi

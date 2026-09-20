@@ -1,0 +1,48 @@
+{
+  "name": "repocarto",
+  "version": "0.1.0",
+  "description": "A living map of your codebase for your README — offline. Renders your repo's files as a themeable SVG map (size = lines of code, color = language). Zero-dependency CLI + GitHub Action. The maintained successor to repo-visualizer.",
+  "type": "module",
+  "bin": {
+    "repocarto": "dist/cli.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "codebase",
+    "visualization",
+    "svg",
+    "readme",
+    "github-action",
+    "repo-visualizer",
+    "diagram",
+    "code-map",
+    "cartography",
+    "cli",
+    "offline",
+    "zero-dependency"
+  ],
+  "author": "Aurelio Nakamura",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aurelio-nakamura/repocarto.git"
+  },
+  "homepage": "https://github.com/aurelio-nakamura/repocarto#readme",
+  "bugs": {
+    "url": "https://github.com/aurelio-nakamura/repocarto/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
