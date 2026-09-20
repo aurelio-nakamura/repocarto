@@ -91,3 +91,34 @@ test("layout is deterministic across runs", () => {
     rmSync(dir, { recursive: true, force: true });
   }
 });
+
+test("exclude drops the named path (e.g. the output SVG) from the scan", () => {
+  const dir = fixture();
+  try {
+    const base = scan(dir, { useGit: false });
+    const ex = scan(dir, { useGit: false, exclude: ["docs/guide.md"] });
+    assert.equal(ex.fileCount, base.fileCount - 1);
+    // The excluded file must not appear anywhere in the tree.
+    const names = [];
+    (function collect(n) {
+      if (n.type === "file") names.push(n.path);
+      else n.children.forEach(collect);
+    })(ex.root);
+    assert.ok(!names.includes("docs/guide.md"));
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("output written into the tree does not cause churn on the next run", () => {
+  const dir = fixture();
+  try {
+    // Simulate a committed map at docs/map.svg, then re-map excluding it.
+    const first = mapRepo(dir, { useGit: false, exclude: ["docs/map.svg"] });
+    writeFileSync(join(dir, "docs", "map.svg"), first);
+    const second = mapRepo(dir, { useGit: false, exclude: ["docs/map.svg"] });
+    assert.equal(first, second);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});

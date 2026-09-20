@@ -1,6 +1,6 @@
 {
   "name": "repocarto",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A living map of your codebase for your README — offline. Renders your repo's files as a themeable SVG map (size = lines of code, color = language). Zero-dependency CLI + GitHub Action. The maintained successor to repo-visualizer.",
   "type": "module",
   "bin": {

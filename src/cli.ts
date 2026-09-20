@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { writeFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { resolve, relative, sep } from "node:path";
 import { scan, Metric } from "./scan.js";
 import { computeLayout } from "./pack.js";
 import { render } from "./render.js";
@@ -128,7 +128,16 @@ async function main(): Promise<void> {
   }
   const a = parsed;
   const dir = resolve(a.path);
-  const result = scan(dir, { metric: a.metric, useGit: a.git });
+  // If the output SVG lives inside the scanned tree, exclude it so a committed
+  // map never feeds back into the next scan (which would cause endless churn).
+  const exclude: string[] = [];
+  if (a.out !== "-") {
+    const relOut = relative(dir, resolve(a.out));
+    if (relOut && !relOut.startsWith("..") && !relOut.startsWith(sep)) {
+      exclude.push(relOut.split(sep).join("/"));
+    }
+  }
+  const result = scan(dir, { metric: a.metric, useGit: a.git, exclude });
   if (result.fileCount === 0) {
     process.stderr.write(`repocarto: no files found in ${dir}\n`);
     process.exit(1);
@@ -152,7 +161,7 @@ async function main(): Promise<void> {
   }
 }
 
-const VERSION = "0.1.0";
+const VERSION = "0.1.1";
 
 main().catch((e) => {
   process.stderr.write(`repocarto: ${(e as Error).stack || e}\n`);

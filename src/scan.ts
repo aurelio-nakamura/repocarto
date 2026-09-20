@@ -26,6 +26,7 @@ export interface ScanOptions {
   metric?: Metric;
   maxFileBytes?: number; // skip reading files larger than this for loc
   useGit?: boolean; // use `git ls-files` when available (default true)
+  exclude?: string[]; // repo-relative POSIX paths to drop (e.g. the output SVG)
 }
 
 const DEFAULT_IGNORES = new Set([
@@ -143,6 +144,12 @@ export function scan(rootDir: string, opts: ScanOptions = {}): ScanResult {
     const segs = p.split("/");
     return !segs.some((s) => DEFAULT_IGNORES.has(s) || s === ".git");
   });
+  // Drop explicitly-excluded paths (e.g. the output SVG, so a committed map
+  // never feeds back into the next scan and cause churn).
+  if (opts.exclude && opts.exclude.length) {
+    const ex = new Set(opts.exclude);
+    rel = rel.filter((p) => !ex.has(p));
+  }
 
   const root: DirNode = { type: "dir", name: rootName(rootDir), path: "", children: [] };
   const dirIndex = new Map<string, DirNode>();
