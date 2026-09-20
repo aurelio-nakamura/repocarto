@@ -50,7 +50,8 @@ runs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "${{ inputs.output }}"
           git commit -m "${{ inputs.commit_message }}"
-          git push
+          # Robust even when actions/checkout leaves HEAD detached (push events).
+          git push origin "HEAD:${{ github.ref_name }}"
         else
           echo "repocarto: map unchanged, nothing to commit."
         fi

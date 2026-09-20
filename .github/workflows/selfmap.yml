@@ -1,0 +1,30 @@
+name: Codebase map
+
+# Dogfood: keep repocarto's own codebase map fresh, and prove the
+# auto-commit Action loop end-to-end on a real runner.
+# Manual + weekly only (never on push) so a committed map can never
+# re-trigger this workflow.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 4 * * 1" # Mondays 04:17 UTC
+
+permissions:
+  contents: write
+
+concurrency:
+  group: codebase-map
+  cancel-in-progress: true
+
+jobs:
+  map:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Render and commit the codebase map
+        uses: ./
+        with:
+          output: docs/self.svg
+          title: repocarto
+          commit: true
+          commit_message: "docs: refresh codebase map (repocarto self-map)"
