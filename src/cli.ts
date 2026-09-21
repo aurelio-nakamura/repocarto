@@ -161,7 +161,7 @@ async function main(): Promise<void> {
   }
 }
 
-const VERSION = "0.1.1";
+const VERSION = "0.1.2";
 
 main().catch((e) => {
   process.stderr.write(`repocarto: ${(e as Error).stack || e}\n`);

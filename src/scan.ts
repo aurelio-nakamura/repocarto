@@ -95,6 +95,9 @@ function gitFiles(root: string): string[] | null {
     const out = execFileSync("git", ["-C", root, "ls-files", "-z", "--cached", "--others", "--exclude-standard"], {
       encoding: "buffer",
       maxBuffer: 64 * 1024 * 1024,
+      // Silence git's own stderr (e.g. "fatal: not a git repository") — we fall
+      // back to a filesystem walk cleanly and must not scare the user.
+      stdio: ["ignore", "pipe", "ignore"],
     });
     const parts = out.toString("utf8").split("\0").filter(Boolean);
     return parts;

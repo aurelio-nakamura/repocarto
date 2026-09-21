@@ -3,6 +3,8 @@ import assert from "node:assert/strict";
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 
 import { scan } from "../dist/scan.js";
 import { computeLayout } from "../dist/pack.js";
@@ -23,6 +25,23 @@ function fixture() {
   writeFileSync(join(dir, "docs", "guide.md"), "text\n".repeat(30));
   return dir;
 }
+
+test("scanning a non-git directory emits no git noise on stderr", () => {
+  // Regression: `git ls-files` on a non-git dir used to leak
+  // "fatal: not a git repository" to the user's terminal before the
+  // filesystem-walk fallback. Its stderr must be silenced.
+  const dir = fixture();
+  const cli = fileURLToPath(new URL("../dist/cli.js", import.meta.url));
+  try {
+    const res = spawnSync(process.execPath, [cli, dir, "-o", join(dir, "out.svg")], {
+      encoding: "utf8",
+    });
+    assert.equal(res.status, 0, "CLI should exit 0 on a non-git dir");
+    assert.ok(!/fatal: not a git repository/i.test(res.stderr || ""), "stderr must not leak git errors");
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
 
 test("classify maps known extensions to languages/colors", () => {
   assert.equal(classify("index.ts").language, "TypeScript");
